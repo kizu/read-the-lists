@@ -1,0 +1,1 @@
+exclude: ["*.sublime-project", "*.sublime-workspace", "node_modules", "Makefile", "package.json", "*.md", "*.styl"]

@@ -1,0 +1,25 @@
+{
+  "private": true,
+
+  "name": "read-the-lists",
+  "version": "0.0.0",
+
+  "author": "Roman Komarov <kizmarh@ya.ru> (http://kizu.ru/en/)",
+  "licence": "MIT",
+
+  "description": "Experiment on reading the lists o_O",
+  "homepage": "https://github.com/kizu/read-the-lists#readme",
+  "bugs": { "url": "http://github.com/kizu/read-the-lists/issues" },
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kizu/read-the-lists.git"
+  },
+
+  "dependencies": {
+    "stylus": "0.42.x",
+    "stylobuild": "0.4.x"
+  },
+
+  "engines": { "node": ">=0.6" }
+}

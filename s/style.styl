@@ -1,0 +1,18 @@
+// Using stylobuild to build the styles
+use('node_modules/stylobuild', {
+  ie: ie
+})
+
+// Include all the stuff
+@require "node_modules/stylobate-islands/node_modules/stylobate/"
+
+// Your styles go here
+
+.page
+  background: #EEE
+  font: 20px/1.5 "Helvetica Neue", Arial, sans-serif
+
+.page-wrapper
+  width: 42em
+  margin: 0 auto
+
