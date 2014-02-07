@@ -1,0 +1,56 @@
+module "main"
+
+include "node_modules/noscript/yate/noscript.yate"
+
+// match .head ns-view-add-class {
+//     " island head"
+// }
+
+// match .head ns-view-content {
+//     "Шапка: она не меняется от страницы к странице"
+// }
+
+// match .content ns-view-add-class {
+//     " island"
+// }
+
+match .index ns-view-add-class {
+    " island"
+}
+
+match .index ns-view-content {
+    <a href="{ ns-url('/2014Feb') }">2014Feb</a>
+}
+
+match .posts ns-view-content {
+    for /.models.posts.item {
+        apply . post-item
+    }
+}
+
+match .* post-item {
+    post = .messages[0]
+    repliesCount = count(.messages) - 1
+
+    <div class="island">
+        <a href="{ ns-url('/' + /.params.month + '/' + post.link) }">{ post.title }</a>
+        " by { post.author }"
+    </div>
+}
+
+match .post ns-view-add-class {
+    " island"
+}
+
+match .post ns-view-content {
+    apply /.models.post post
+}
+
+match .* post {
+    <h3>
+        .title
+    </h3>
+    <div>
+        html(.body)
+    </div>
+}

@@ -38,7 +38,6 @@ var get_post = function($post) {
   return parsed_post;
 };
 
-
 var createCORSRequest = function(method, url) {
   var xhr = new XMLHttpRequest();
   if ("withCredentials" in xhr) {
@@ -55,38 +54,41 @@ var createCORSRequest = function(method, url) {
   return xhr;
 };
 
-var posts = createCORSRequest('GET', 'http://lists.w3.org/Archives/Public/www-style/2014Feb/thread.html');
-posts.onload = function(result) {
-  var response = result.srcElement.response.replace(/^[\s\S]+<body>/, '').replace(/<\/body>[\s\S]+$/, '')
 
-  document.getElementById('cached').innerHTML = response;
-  console.log('');
-  console.log('');
-  console.log('List of threads');
-  console.log(get_all_threads($('#cached > .messages-list > ul > li > a[href]')));
+window.data = {
+  getPosts: function(params) {
+    return this._get(
+      'http://lists.w3.org/Archives/Public/www-style/' + params.month + '/thread.html',
+      function() {
+        return get_all_threads($('#cached > .messages-list > ul > li > a[href]'));
+      }
+    );
+  },
+
+  getPost: function(params) {
+    return this._get(
+      'http://lists.w3.org/Archives/Public/www-style/' + params.month + '/' + params['post-id'],
+      function() {
+        return get_post($('#cached'));
+      }
+    );
+  },
+
+  _get: function(url, parser) {
+    var promise = new no.Promise();
+
+    var xhr = createCORSRequest('GET', url);
+    xhr.onload = function(result) {
+      var response = result.srcElement.response.replace(/^[\s\S]+<body>/, '').replace(/<\/body>[\s\S]+$/, '');
+      document.getElementById('cached').innerHTML = response;
+      promise.resolve(parser());
+    };
+
+    xhr.onerror = function() {
+      promise.reject();
+    };
+
+    xhr.send();
+    return promise;
+  }
 };
-
-posts.onerror = function() {
-  // Error code goes here.
-};
-
-posts.send();
-
-
-
-var post = createCORSRequest('GET', 'http://lists.w3.org/Archives/Public/www-style/2014Feb/0032.html');
-post.onload = function(result) {
-  var response = result.srcElement.response.replace(/^[\s\S]+<body>/, '').replace(/<\/body>[\s\S]+$/, '')
-
-  document.getElementById('cached_message').innerHTML = response;
-  console.log('');
-  console.log('');
-  console.log('Post');
-  console.log(get_post($('#cached_message')));
-};
-
-post.onerror = function() {
-  // Error code goes here.
-};
-
-post.send();
