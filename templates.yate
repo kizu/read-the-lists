@@ -50,7 +50,7 @@ match .* post {
     <h3>
         .title
     </h3>
-    <div>
+    <pre>
         html(.body)
-    </div>
+    </pre>
 }

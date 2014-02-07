@@ -10,6 +10,14 @@ use('node_modules/stylobuild', {
 
 // Your styles go here
 
+break-words()
+  white-space: pre-wrap;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word; // Non standard for webkit
+
 .page
   background: #EEE
   font: 20px/1.5 "Helvetica Neue", Arial, sans-serif
@@ -18,8 +26,6 @@ use('node_modules/stylobuild', {
   width: 42em
   margin: 0 auto
 
-
-
 .island
   background: #FFF
   width: 800px
@@ -27,4 +33,8 @@ use('node_modules/stylobuild', {
   margin: 1em auto
   box-shadow: 0 1px 3px #DDD
 
+pre
+  break-words()
+
 _ie = false unless _ie is defined
+
